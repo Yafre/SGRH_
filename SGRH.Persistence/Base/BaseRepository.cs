@@ -25,14 +25,11 @@ namespace SGRH.Persistence.Base
             {
                 Entity.Add(entity);
                 await _context.SaveChangesAsync();
-                result.Success = true;
-                result.Message = "Datos guardados exitosamente.";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Ocurrió un error guardando los datos.";
-                result.Exception = ex;
             }
 
             return result;
@@ -46,14 +43,11 @@ namespace SGRH.Persistence.Base
             {
                 Entity.Update(entity);
                 await _context.SaveChangesAsync();
-                result.Success = true;
-                result.Message = "Datos actualizados exitosamente.";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Ocurrió un error actualizando los datos.";
-                result.Exception = ex;
             }
 
             return result;
@@ -67,13 +61,11 @@ namespace SGRH.Persistence.Base
             {
                 var datos = await Entity.Where(filter).ToListAsync();
                 result.Data = datos;
-                result.Success = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Ocurrió un error obteniendo los datos.";
-                result.Exception = ex;
             }
 
             return result;
