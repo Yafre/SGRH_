@@ -29,7 +29,7 @@ namespace SGRH.Persistence.Repositories
         {
             _logger.LogInformation("Obteniendo todos los servicios activos");
             return await _context.Servicios
-                                 .Where(s => s.Estatus == true)
+                                 .Where(s => s.Estado == true)
                                  .ToListAsync();
         }
 

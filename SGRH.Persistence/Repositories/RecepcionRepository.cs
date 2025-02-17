@@ -28,15 +28,15 @@ namespace SGRH.Persistence.Repositories
         {
             _logger.LogInformation($"Validando disponibilidad de la habitación {habitacionId} entre {inicio} y {fin}");
             return !await _context.Recepciones
-                                  .AnyAsync(r => r.HabitacionId == habitacionId &&
-                                                 r.FechaInicio < fin && r.FechaFin > inicio);
+                                  .AnyAsync(r => r.IdHabitacion == habitacionId &&
+                                                 r.FechaEntrada < fin && r.FechaSalida > inicio);
         }
 
         public async override Task<List<Recepcion>> GetAllAsync()
         {
             _logger.LogInformation("Obteniendo todas las recepciones activas");
             return await _context.Recepciones
-                                 .Where(r => r.Estatus == true)
+                                 .Where(r => r.Estado == true)
                                  .ToListAsync();
         }
     }

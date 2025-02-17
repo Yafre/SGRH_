@@ -29,7 +29,7 @@ namespace SGRH.Persistence.Repositories
         {
             _logger.LogInformation($"Obteniendo habitaciones disponibles para la categoría {categoriaId} entre {inicio} y {fin}");
             return await _context.Habitaciones
-                                 .Where(h => h.CategoriaId == categoriaId &&
+                                 .Where(h => h.IdCategoria == categoriaId &&
                                              !h.Reservas.Any(r => r.FechaInicio < fin && r.FechaFin > inicio))
                                  .ToListAsync();
         }
@@ -38,7 +38,7 @@ namespace SGRH.Persistence.Repositories
         {
             _logger.LogInformation("Obteniendo todas las habitaciones activas");
             return await _context.Habitaciones
-                                 .Where(h => h.Estatus == true)
+                                 .Where(h => h.Estado == true)
                                  .ToListAsync();
         }
     }

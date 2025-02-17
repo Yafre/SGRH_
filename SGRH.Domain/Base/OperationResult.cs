@@ -1,31 +1,10 @@
-﻿namespace SGRH.Domain.Base
+﻿public class OperationResult
 {
-    /// <summary>
-    /// Representa el resultado de una operación con información adicional.
-    /// </summary>
-    public class OperationResult
+    public OperationResult()
     {
-        /// <summary>
-        /// Constructor que inicializa la operación como exitosa por defecto.
-        /// </summary>
-        public OperationResult()
-        {
-            this.Success = true;
-        }
-
-        /// <summary>
-        /// Indica si la operación fue exitosa.
-        /// </summary>
-        public bool Success { get; set; }
-
-        /// <summary>
-        /// Mensaje asociado al resultado de la operación.
-        /// </summary>
-        public string? Message { get; set; }
-
-        /// <summary>
-        /// Datos adicionales retornados por la operación.
-        /// </summary>
-        public dynamic? Data { get; set; }
+        this.Success = true;
     }
+    public string Message { get; set; } = string.Empty; // para evitar valores nulos con un valor predeterminado
+    public bool Success { get; set; }
+    public dynamic Data { get; set; } = null!;
 }

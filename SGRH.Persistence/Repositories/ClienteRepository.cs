@@ -27,14 +27,14 @@ namespace SGRH.Persistence.Repositories
         public override Task<OperationResult> SaveEntityAsync(Cliente entity)
         {
             // Lógica personalizada para guardar cliente
-            _logger.LogInformation($"Guardando cliente: {entity.Nombre}");
+            _logger.LogInformation($"Guardando cliente: {entity.NombreCompleto}");
             return base.SaveEntityAsync(entity);
         }
 
         public override Task<OperationResult> UpdateEntityAsync(Cliente entity)
         {
             // Lógica personalizada para actualizar cliente
-            _logger.LogInformation($"Actualizando cliente: {entity.Nombre}");
+            _logger.LogInformation($"Actualizando cliente: {entity.NombreCompleto}");
             return base.UpdateEntityAsync(entity);
         }
 
@@ -43,7 +43,7 @@ namespace SGRH.Persistence.Repositories
             // Solo clientes activos
             _logger.LogInformation("Obteniendo lista de clientes activos");
             return await _context.Clientes
-                                 .Where(c => c.Estatus == true)
+                                 .Where(c => c.Estado == true)
                                  .ToListAsync();
         }
     }
