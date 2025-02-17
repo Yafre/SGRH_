@@ -1,9 +1,12 @@
 ﻿namespace SGRH.Domain.Entities.Servicios
 {
-    public class Servicio
+    public class Servicios
     {
-        public int IdServicios { get; set; }
-        public required string Nombre { get; set; }
-        public required string Descripcion { get; set; }
+        public int IdServicio { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Descripcion { get; set; } = string.Empty;
+
+        public bool Estado { get; set; } = true;
     }
+
 }

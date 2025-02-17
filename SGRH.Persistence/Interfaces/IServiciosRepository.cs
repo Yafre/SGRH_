@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGRH.Domain.Entities;
+using SGRH.Domain.Entities.Servicios;
+using SGRH.Domain.Repository;
+using SGRH.Persistence.Base;
 
 namespace SGRH.Persistence.Interfaces
 {
-    class IServiciosRepository
+    public interface IServicioRepository : IBaseRepository<Servicios>
     {
+        Task<List<Servicios>> GetServiciosActivosAsync();
     }
 }

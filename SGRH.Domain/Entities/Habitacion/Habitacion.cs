@@ -1,20 +1,16 @@
-﻿namespace SGRH.Domain.Entities.Habitaciones
+﻿namespace SGRH.Domain.Entities.Habitacion
 {
     public class Habitacion
     {
         public int IdHabitacion { get; set; }
-        public required string Numero { get; set; }
-        public required string Detalle { get; set; }
+        public string Numero { get; set; } = string.Empty;
+        public string Detalle { get; set; } = string.Empty;
         public decimal Precio { get; set; }
-        public int? IdEstadoHabitacion { get; set; }
-        public int? IdPiso { get; set; }
-        public int? IdCategoria { get; set; }
-        public bool Estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
-
-        // Relaciones
-        public required EstadoHabitacion EstadoHabitacion { get; set; }
-        public required Pisos.Piso Piso { get; set; }
-        public required Categorias.Categoria Categoria { get; set; }
+        public int? IdEstadoHabitacion { get; set; } // Relación con EstadoHabitacion
+        public int? IdPiso { get; set; } // Relación con Piso
+        public int? IdCategoria { get; set; } // Relación con Categoria
+        public bool Estado { get; set; } = true;
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
     }
+
 }
