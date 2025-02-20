@@ -28,7 +28,9 @@ namespace SGRH.Persistence.Repositories
         public async Task<List<Habitacion>> GetHabitacionesDisponiblesAsync(DateTime inicio, DateTime fin, int categoriaId)
         {
             _logger.LogInformation($"Obteniendo habitaciones disponibles para la categoría {categoriaId} entre {inicio} y {fin}");
+
             return await _context.Habitaciones
+                                 .Include(h => h.Reservas) // Cargar las reservas
                                  .Where(h => h.IdCategoria == categoriaId &&
                                              !h.Reservas.Any(r => r.FechaInicio < fin && r.FechaFin > inicio))
                                  .ToListAsync();

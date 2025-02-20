@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using SGRH.Domain.Entities;
 using SGRH.Domain.Entities.Servicios;
-using SGRH.Domain.Repository;
 using SGRH.Persistence.Base;
 using SGRH.Persistence.Context;
 using SGRH.Persistence.Interfaces;

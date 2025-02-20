@@ -8,9 +8,10 @@
         public decimal Precio { get; set; }
         public int? IdEstadoHabitacion { get; set; } // Relación con EstadoHabitacion
         public int? IdPiso { get; set; } // Relación con Piso
-        public int? IdCategoria { get; set; } // Relación con Categoria
+        public int? IdCategoria { get; set; } // Relación con Categoría
         public bool Estado { get; set; } = true;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
-    }
 
+        public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
+    }
 }
