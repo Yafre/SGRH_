@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGRH.Infraestructure
 {
-    internal class infra
+    internal class Infra
     {
     }
 }

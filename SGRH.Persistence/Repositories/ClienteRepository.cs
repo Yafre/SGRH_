@@ -26,14 +26,14 @@ namespace SGRH.Persistence.Repositories
 
         public override Task<OperationResult> SaveEntityAsync(Cliente entity)
         {
-            // Lógica personalizada para guardar cliente
+            // Lógica para guardar cliente
             _logger.LogInformation($"Guardando cliente: {entity.NombreCompleto}");
             return base.SaveEntityAsync(entity);
         }
 
         public override Task<OperationResult> UpdateEntityAsync(Cliente entity)
         {
-            // Lógica personalizada para actualizar cliente
+            // Lógica para actualizar cliente
             _logger.LogInformation($"Actualizando cliente: {entity.NombreCompleto}");
             return base.UpdateEntityAsync(entity);
         }

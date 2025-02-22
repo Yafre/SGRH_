@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGRH.Domain.Base;
 using SGRH.Domain.Repository;
 using SGRH.Persistence.Context;
 using System.Linq.Expressions;
@@ -25,6 +24,8 @@ namespace SGRH.Persistence.Base
             {
                 Entity.Add(entity);
                 await _context.SaveChangesAsync();
+                result.Success = true;
+                result.Message = "Entidad guardada exitosamente.";
             }
             catch (Exception)
             {
@@ -43,6 +44,8 @@ namespace SGRH.Persistence.Base
             {
                 Entity.Update(entity);
                 await _context.SaveChangesAsync();
+                result.Success = true;
+                result.Message = "Entidad actualizada exitosamente.";
             }
             catch (Exception)
             {
@@ -61,6 +64,7 @@ namespace SGRH.Persistence.Base
             {
                 var datos = await Entity.Where(filter).ToListAsync();
                 result.Data = datos;
+                result.Success = true;
             }
             catch (Exception)
             {
@@ -84,6 +88,26 @@ namespace SGRH.Persistence.Base
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
             return await Entity.ToListAsync();
+        }
+
+        public virtual async Task<OperationResult> DeleteEntityAsync(TEntity entity)
+        {
+            OperationResult result = new OperationResult();
+
+            try
+            {
+                Entity.Remove(entity);
+                await _context.SaveChangesAsync();
+                result.Success = true;
+                result.Message = "Entidad eliminada exitosamente.";
+            }
+            catch (Exception)
+            {
+                result.Success = false;
+                result.Message = "Ocurrió un error eliminando los datos.";
+            }
+
+            return result;
         }
     }
 }
