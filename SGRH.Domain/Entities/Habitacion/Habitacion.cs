@@ -13,5 +13,6 @@
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
         public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
+
     }
 }

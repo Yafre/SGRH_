@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SGRH.Domain.Entities.Cliente;
 using SGRH.Persistence.Interfaces;
+using SGRH.Model.DTOs;
+
 
 namespace SGRH.Api.Controllers
 {
@@ -23,8 +25,21 @@ namespace SGRH.Api.Controllers
         {
             _logger.LogInformation("Obteniendo todos los clientes...");
             var clientes = await _clienteRepository.GetAllAsync();
-            return Ok(clientes);
+
+            var clienteDtos = clientes.Select(c => new ClienteDto
+            {
+                IdCliente = c.IdCliente,
+                TipoDocumento = c.TipoDocumento,
+                Documento = c.Documento,
+                NombreCompleto = c.NombreCompleto,
+                Correo = c.Correo,
+                Estado = c.Estado,
+                FechaCreacion = c.FechaCreacion
+            }).ToList();
+
+            return Ok(clienteDtos);
         }
+
 
         // GET: api/Cliente/{id}
         [HttpGet("{id}")]
@@ -39,8 +54,20 @@ namespace SGRH.Api.Controllers
                 return NotFound("Cliente no encontrado.");
             }
 
-            return Ok(cliente);
+            var clienteDto = new ClienteDto
+            {
+                IdCliente = cliente.IdCliente,
+                TipoDocumento = cliente.TipoDocumento,
+                Documento = cliente.Documento,
+                NombreCompleto = cliente.NombreCompleto,
+                Correo = cliente.Correo,
+                Estado = cliente.Estado,
+                FechaCreacion = cliente.FechaCreacion
+            };
+
+            return Ok(clienteDto);
         }
+
 
         // POST: api/Cliente
         [HttpPost]

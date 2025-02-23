@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SGRH.Persistence.Context;
 using SGRH.Persistence.Interfaces;
 using SGRH.Persistence.Repositories;
@@ -12,7 +12,6 @@ namespace SGRH.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddDbContext<SGRHContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBHotel")));
 
             // Registro de los repositorios
@@ -20,6 +19,7 @@ namespace SGRH.Api
             builder.Services.AddScoped<IHabitacionRepository, HabitacionRepository>();
             builder.Services.AddScoped<IRecepcionRepository, RecepcionRepository>();
             builder.Services.AddScoped<IServicioRepository, ServicioRepository>();
+            builder.Services.AddScoped<IReservaRepository, ReservaRepository>(); // 🔹 REGISTRAR RESERVA
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,8 +36,6 @@ namespace SGRH.Api
             }
 
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
