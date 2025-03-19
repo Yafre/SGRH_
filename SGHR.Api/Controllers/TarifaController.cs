@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SGHR.Application.Dtos.Tarifa;
 using SGHR.Application.Interfaces;
 
@@ -10,12 +9,10 @@ namespace SGHR.Api.Controllers
     public class TarifaController : ControllerBase
     {
         private readonly ITarifaService _service;
-        private readonly ILogger<TarifaController> _logger;
 
-        public TarifaController(ITarifaService service, ILogger<TarifaController> logger)
+        public TarifaController(ITarifaService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -25,8 +22,7 @@ namespace SGHR.Api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound($"Tarifa con ID {id} no encontrada.");
-            return Ok(result);
+            return result == null ? NotFound($"Tarifa con ID {id} no encontrada.") : Ok(result);
         }
 
         [HttpPost]

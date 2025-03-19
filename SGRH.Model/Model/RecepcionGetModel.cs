@@ -12,7 +12,6 @@
         public decimal PrecioRestante { get; set; }
         public decimal TotalPagado { get; set; }
 
-       
         public string Estado => EstadoBool ? "activo" : "inactivo";
         public bool EstadoBool { get; set; }
     }

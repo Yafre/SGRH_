@@ -73,7 +73,7 @@ namespace SGHR.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener la tarifa: {ex.Message}");
+                _logger.LogError(ex, "Error al obtener la tarifa: {Message}", ex.Message);
                 result.Success = false;
                 result.Message = "Ocurrió un error obteniendo la tarifa.";
             }

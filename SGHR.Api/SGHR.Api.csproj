@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SGHR.IOC\SGHR.IOC.csproj" />
+    <ProjectReference Include="..\SGRH.Model\SGRH.Model.csproj" />
   </ItemGroup>
 
 </Project>

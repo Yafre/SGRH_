@@ -62,13 +62,47 @@ namespace SGHR.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener el cliente: {ex.Message}");
+                _logger.LogError(ex, "Error al obtener el cliente: {Message}", ex.Message);
                 result.Success = false;
                 result.Message = "Ocurrió un error obteniendo el cliente.";
             }
             return result;
         }
+
+        public async Task<OperationResult> GetByEmailAsync(string email)
+        {
+            var result = new OperationResult();
+            try
+            {
+                var cliente = await _context.Clientes
+                    .Where(c => c.Correo == email)
+                    .Select(c => new ClienteGetModel
+                    {
+                        IdCliente = c.IdCliente,
+                        NombreCompleto = c.NombreCompleto,
+                        Correo = c.Correo,
+                        Estado = c.Estado
+                    })
+                    .FirstOrDefaultAsync();
+
+                if (cliente != null)
+                {
+                    result.Data = cliente;
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = "Cliente no encontrado con ese correo.";
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener el cliente por email: {Message}", ex.Message);
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo el cliente por correo.";
+            }
+            return result;
+        }
     }
 }
-
-

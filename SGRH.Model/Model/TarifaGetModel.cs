@@ -10,10 +10,7 @@
         public decimal Descuento { get; set; }
         public string Descripcion { get; set; } = string.Empty;
 
-        
         public string Estado => EstadoBool ? "activo" : "inactivo";
         public bool EstadoBool { get; set; }
     }
-
-
 }

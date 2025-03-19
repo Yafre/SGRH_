@@ -1,4 +1,5 @@
 ﻿namespace SGHR.Model.Model
+
 {
     public class ClienteGetModel
     {
@@ -6,7 +7,5 @@
         public required string NombreCompleto { get; set; }
         public required string Correo { get; set; }
         public bool Estado { get; set; }
-
-
     }
 }

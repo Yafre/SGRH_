@@ -77,7 +77,7 @@ namespace SGHR.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener la recepción: {ex.Message}");
+                _logger.LogError(ex, "Error al obtener la recepción: {Message}", ex.Message);
                 result.Success = false;
                 result.Message = "Ocurrió un error obteniendo la recepción.";
             }
@@ -85,4 +85,3 @@ namespace SGHR.Persistence.Repositories
         }
     }
 }
-

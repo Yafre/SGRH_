@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Logging;
 using SGHR.Domain.Base;
 using SGHR.Domain.Entities;
+using SGHR.Model.Model;
 using SGHR.Persistence.Context;
 using SGHR.Persistence.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SGHR.Persistence.Repositories
@@ -20,24 +22,39 @@ namespace SGHR.Persistence.Repositories
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Servicio>> GetAllAsync()
+        public async Task<IEnumerable<ServicioGetModel>> GetAllAsync()
         {
-            return await _context.Servicios.ToListAsync();
+            return await _context.Servicios
+                .Select(s => new ServicioGetModel
+                {
+                    IdServicio = s.IdServicio,
+                    Nombre = s.Nombre,
+                    Descripcion = s.Descripcion,
+                    EstadoBool = s.Estado
+                })
+                .ToListAsync();
         }
 
-        public async Task<Servicio?> GetByIdAsync(int id)
+        public async Task<ServicioGetModel?> GetByIdAsync(int id)
         {
-            return await _context.Servicios.FindAsync(id);
+            return await _context.Servicios
+                .Where(s => s.IdServicio == id)
+                .Select(s => new ServicioGetModel
+                {
+                    IdServicio = s.IdServicio,
+                    Nombre = s.Nombre,
+                    Descripcion = s.Descripcion,
+                    EstadoBool = s.Estado
+                })
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Servicios.AnyAsync(s => s.IdServicio == id);
-        }
+        public async Task<bool> ExistsAsync(int id) =>
+            await _context.Servicios.AnyAsync(s => s.IdServicio == id);
 
         public async Task<OperationResult> AddAsync(Servicio servicio)
         {
-            _context.Servicios.Add(servicio);
+            await _context.Servicios.AddAsync(servicio);
             await _context.SaveChangesAsync();
             return new OperationResult { Success = true, Message = "Servicio agregado correctamente." };
         }
@@ -55,14 +72,14 @@ namespace SGHR.Persistence.Repositories
         public async Task<OperationResult> DeleteAsync(int id)
         {
             var servicio = await _context.Servicios.FindAsync(id);
-            if (servicio == null)
+            if (servicio is null)
                 return new OperationResult { Success = false, Message = "Servicio no encontrado." };
 
-            _context.Servicios.Remove(servicio);
+            servicio.Estado = false; // eliminación lógica
+            _context.Servicios.Update(servicio);
             await _context.SaveChangesAsync();
-            return new OperationResult { Success = true, Message = "Servicio eliminado correctamente." };
+
+            return new OperationResult { Success = true, Message = "Servicio eliminado lógicamente." };
         }
     }
 }
-
-

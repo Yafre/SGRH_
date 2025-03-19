@@ -69,9 +69,47 @@ namespace SGHR.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener el usuario: {ex.Message}");
+                _logger.LogError(ex, "Error al obtener el usuario: {Message}", ex.Message);
                 result.Success = false;
                 result.Message = "Ocurrió un error obteniendo el usuario.";
+            }
+            return result;
+        }
+
+        public async Task<OperationResult> GetByEmailAsync(string email)
+        {
+            var result = new OperationResult();
+            try
+            {
+                var usuario = await _context.Usuarios
+                    .Where(u => u.Correo == email)
+                    .Select(u => new UsuarioGetModel
+                    {
+                        IdUsuario = u.IdUsuario,
+                        NombreCompleto = u.NombreCompleto,
+                        Correo = u.Correo,
+                        IdRolUsuario = u.IdRolUsuario,
+                        Estado = u.Estado,
+                        FechaCreacion = u.FechaCreacion
+                    })
+                    .FirstOrDefaultAsync();
+
+                if (usuario != null)
+                {
+                    result.Data = usuario;
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = "Usuario no encontrado con ese correo.";
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener el usuario por email: {Message}", ex.Message);
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo el usuario por correo.";
             }
             return result;
         }
