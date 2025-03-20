@@ -12,8 +12,6 @@ namespace SGHR.Domain.Entities
         public string Clave { get; set; } = string.Empty;
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
-
-        // Relación con RolUsuario
         public virtual RolUsuario RolUsuario { get; set; } = null!;
     }
 }

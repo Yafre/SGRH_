@@ -10,7 +10,6 @@ namespace SGHR.Domain.Entities.Habitaciones
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        // Relación con Habitaciones
         public virtual ICollection<Habitacion> Habitaciones { get; set; } = [];
     }
 }

@@ -12,7 +12,6 @@ namespace SGHR.Domain.Entities
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 
-        // Relación con Categoría
         public virtual ICollection<Categoria> Categorias { get; set; } = [];
     }
 }

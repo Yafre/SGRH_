@@ -12,7 +12,6 @@ namespace SGHR.Domain.Entities.Habitaciones
         public string Detalle { get; set; } = string.Empty;
         public decimal Precio { get; set; }
 
-        // 🔥 Asegurar que las claves foráneas coincidan con la BD
         [ForeignKey(nameof(EstadoHabitacion))]
         public int IdEstadoHabitacion { get; set; }
         public virtual EstadoHabitacion EstadoHabitacion { get; set; } = null!;
@@ -28,7 +27,6 @@ namespace SGHR.Domain.Entities.Habitaciones
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        // Relación con Tarifas
         public virtual ICollection<Tarifa> Tarifas { get; set; } = new List<Tarifa>();
     }
 }

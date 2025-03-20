@@ -9,10 +9,10 @@ public class Recepcion
     public int IdRecepcion { get; set; }
 
     [ForeignKey(nameof(Cliente))]
-    public int IdCliente { get; set; }  // ✅ Nombre correcto
+    public int IdCliente { get; set; }  
 
     [ForeignKey(nameof(Habitacion))]
-    public int IdHabitacion { get; set; }  // ✅ Nombre correcto
+    public int IdHabitacion { get; set; }  
 
     public DateTime FechaEntrada { get; set; }
     public DateTime FechaSalida { get; set; }

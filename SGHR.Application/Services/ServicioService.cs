@@ -20,7 +20,6 @@ namespace SGHR.Application.Services
                 IdServicio = s.IdServicio,
                 Nombre = s.Nombre,
                 Descripcion = s.Descripcion,
-                Estado = s.EstadoBool
             });
 
         public async Task<ServicioDto> GetByIdAsync(int id)
@@ -33,7 +32,6 @@ namespace SGHR.Application.Services
                 IdServicio = servicio.IdServicio,
                 Nombre = servicio.Nombre,
                 Descripcion = servicio.Descripcion,
-                Estado = servicio.EstadoBool
             };
         }
 

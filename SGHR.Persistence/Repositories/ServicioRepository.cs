@@ -30,7 +30,6 @@ namespace SGHR.Persistence.Repositories
                     IdServicio = s.IdServicio,
                     Nombre = s.Nombre,
                     Descripcion = s.Descripcion,
-                    EstadoBool = s.Estado
                 })
                 .ToListAsync();
         }
@@ -44,7 +43,6 @@ namespace SGHR.Persistence.Repositories
                     IdServicio = s.IdServicio,
                     Nombre = s.Nombre,
                     Descripcion = s.Descripcion,
-                    EstadoBool = s.Estado
                 })
                 .FirstOrDefaultAsync();
         }
