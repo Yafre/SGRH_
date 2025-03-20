@@ -19,6 +19,12 @@ namespace SGHR.Api
 
             builder.Services.AddApplicationServices();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
             builder.Services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -33,13 +39,13 @@ namespace SGHR.Api
 
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
             app.UseCors("AllowAll");
             app.UseAuthorization();
-            app.UseDeveloperExceptionPage();
             app.MapControllers();
             app.Run();
         }

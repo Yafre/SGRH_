@@ -10,7 +10,6 @@ namespace SGHR.Domain.Entities
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        // Relación con Usuario
         public virtual ICollection<Usuario> Usuarios { get; set; } = [];
     }
 }

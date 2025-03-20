@@ -10,7 +10,7 @@ namespace SGHR.IOC.Dependencies
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // REGISTRO DE SERVICIOS (Application Layer)
+            // Servicios de Aplicación
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IHabitacionService, HabitacionService>();
             services.AddScoped<IRecepcionService, RecepcionService>();
@@ -18,7 +18,7 @@ namespace SGHR.IOC.Dependencies
             services.AddScoped<ITarifaService, TarifaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
 
-            // REGISTRO DE REPOSITORIOS (Persistence Layer)
+            // Repositorios de Persistencia
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IHabitacionRepository, HabitacionRepository>();
             services.AddScoped<IRecepcionRepository, RecepcionRepository>();

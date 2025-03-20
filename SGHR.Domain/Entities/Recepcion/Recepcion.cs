@@ -27,7 +27,7 @@ public class Recepcion
     public bool Estado { get; set; }
     public DateTime FechaCreacion { get; set; }
 
-    // Relaciones
+ 
     public virtual Cliente Cliente { get; set; } = null!;
     public virtual Habitacion Habitacion { get; set; } = null!;
 }

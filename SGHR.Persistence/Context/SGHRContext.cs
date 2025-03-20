@@ -21,7 +21,6 @@ namespace SGHR.Persistence.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            // Aplica automáticamente todas las configuraciones
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SGHRContext).Assembly);
         }
     }

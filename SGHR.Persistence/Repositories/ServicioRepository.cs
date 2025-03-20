@@ -73,7 +73,7 @@ namespace SGHR.Persistence.Repositories
             if (servicio is null)
                 return new OperationResult { Success = false, Message = "Servicio no encontrado." };
 
-            servicio.Estado = false; // eliminación lógica
+            servicio.Estado = false; 
             _context.Servicios.Update(servicio);
             await _context.SaveChangesAsync();
 
