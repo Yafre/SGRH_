@@ -25,7 +25,7 @@ public class Recepcion
     public decimal CostoPenalidad { get; set; }
     public string Observacion { get; set; } = string.Empty;
     public bool Estado { get; set; }
-    public DateTime FechaCreacion { get; set; }
+    public DateTime? FechaCreacion { get; set; }
 
  
     public virtual Cliente Cliente { get; set; } = null!;

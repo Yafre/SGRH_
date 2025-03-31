@@ -1,0 +1,57 @@
+﻿@model SGHR.Application.Dtos.Tarifa.TarifaDto
+
+@{
+    ViewData["Title"] = "Detalles de Tarifa";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="form-horizontal">
+    <h4>Tarifa</h4>
+    <hr />
+
+    <div class="form-group">
+        <label class="control-label">ID</label>
+        <p class="form-control-static">@Model.IdTarifa</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">ID de Habitación</label>
+        <p class="form-control-static">@Model.IdHabitacion</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Fecha de Inicio</label>
+        <p class="form-control-static">@Model.FechaInicio.ToShortDateString()</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Fecha de Fin</label>
+        <p class="form-control-static">@Model.FechaFin.ToShortDateString()</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Precio por Noche</label>
+        <p class="form-control-static">@Model.PrecioPorNoche.ToString("C")</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Descuento</label>
+        <p class="form-control-static">@Model.Descuento.ToString("P")</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Descripción</label>
+        <p class="form-control-static">@Model.Descripcion</p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Estado</label>
+        <p class="form-control-static">@((Model.Estado) ? "Activo" : "Inactivo")</p>
+    </div>
+
+    <div class="form-group">
+        <a asp-action="Edit" asp-route-id="@Model.IdTarifa" class="btn btn-warning">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>

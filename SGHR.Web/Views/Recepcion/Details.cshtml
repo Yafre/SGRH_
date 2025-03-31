@@ -1,0 +1,33 @@
+﻿@model SGHR.Application.Dtos.Recepcion.RecepcionDto
+
+@{
+    ViewData["Title"] = "Detalles de la Recepción";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Cliente</dt>
+    <dd class="col-sm-10">@Model.IdCliente</dd>
+
+    <dt class="col-sm-2">Habitación</dt>
+    <dd class="col-sm-10">@Model.IdHabitacion</dd>
+
+    <dt class="col-sm-2">Entrada</dt>
+    <dd class="col-sm-10">@Model.FechaEntrada.ToShortDateString()</dd>
+
+    <dt class="col-sm-2">Salida</dt>
+    <dd class="col-sm-10">@Model.FechaSalida.ToShortDateString()</dd>
+
+    <dt class="col-sm-2">Total Pagado</dt>
+    <dd class="col-sm-10">@Model.TotalPagado</dd>
+
+    <dt class="col-sm-2">Observación</dt>
+    <dd class="col-sm-10">@Model.Observacion</dd>
+
+    <dt class="col-sm-2">Estado</dt>
+    <dd class="col-sm-10">@Model.Estado</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.IdRecepcion" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SGHR.Application.Dtos.Recepcion
+﻿namespace SGHR.Application.Dtos.Recepcion
 {
     public class RecepcionDto
     {
@@ -13,9 +7,10 @@ namespace SGHR.Application.Dtos.Recepcion
         public int IdHabitacion { get; set; }
         public DateTime FechaEntrada { get; set; }
         public DateTime FechaSalida { get; set; }
-        public decimal PrecioInicial { get; set; }
         public decimal TotalPagado { get; set; }
+        public string Observacion { get; set; } = string.Empty;
         public bool Estado { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Observaciones { get; set; } = string.Empty;
     }
-
 }

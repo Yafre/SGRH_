@@ -1,32 +1,41 @@
-namespace SGHR.Web
+﻿using SGHR.Web.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Dirección base correcta de la API en HTTP
+var apiBaseUrl = "http://localhost:5116/";
+
+// Registrar servicios con HttpClient
+builder.Services.AddHttpClient<TarifaApiService>(client =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    client.BaseAddress = new Uri(apiBaseUrl);
+});
+builder.Services.AddHttpClient<UsuarioApiService>(client =>
+{
+    client.BaseAddress = new Uri(apiBaseUrl);
+});
+builder.Services.AddHttpClient<RecepcionApiService>(client =>
+{
+    client.BaseAddress = new Uri(apiBaseUrl);
+});
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+// Habilitar controladores y vistas
+builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
-        }
-    }
+// Middleware
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

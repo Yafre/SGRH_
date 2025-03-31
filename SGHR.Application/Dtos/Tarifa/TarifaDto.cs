@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SGHR.Application.Dtos.Tarifa
+﻿namespace SGHR.Application.Dtos.Tarifa
 {
     public class TarifaDto
     {
@@ -12,6 +10,7 @@ namespace SGHR.Application.Dtos.Tarifa
         public decimal Descuento { get; set; }
         public string Descripcion { get; set; } = string.Empty;
         public bool Estado { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public decimal Precio { get; set; }
     }
-
 }

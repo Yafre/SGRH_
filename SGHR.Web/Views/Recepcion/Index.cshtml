@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SGHR.Application.Dtos.Recepcion.RecepcionDto>
+
+@{
+    ViewData["Title"] = "Recepciones";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Crear nueva</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Habitación</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdCliente</td>
+                <td>@item.IdHabitacion</td>
+                <td>@item.FechaEntrada.ToShortDateString()</td>
+                <td>@item.FechaSalida.ToShortDateString()</td>
+                <td>@item.TotalPagado</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdRecepcion" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdRecepcion" class="btn btn-sm btn-info">Ver</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdRecepcion" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SGHR.Application.Dtos.Tarifa.TarifaDto>
+
+@{
+    ViewData["Title"] = "Lista de Tarifas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear nueva tarifa</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Precio por Noche</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarifa in Model)
+        {
+            <tr>
+                <td>@tarifa.Descripcion</td>
+                <td>@tarifa.PrecioPorNoche.ToString("C")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@tarifa.IdTarifa" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@tarifa.IdTarifa" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@tarifa.IdTarifa" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

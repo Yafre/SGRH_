@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "SGHR.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
