@@ -1,5 +1,6 @@
 ﻿using SGHR.Application.Dtos.Usuario;
 using SGHR.Application.Interfaces;
+using SGHR.Application.Mappers;
 using SGHR.Domain.Base;
 using SGHR.Domain.Entities;
 using SGHR.Persistence.Interfaces;
@@ -21,13 +22,7 @@ namespace SGHR.Application.Services
         public async Task<IEnumerable<UsuarioDto>> GetAllAsync()
         {
             var usuarios = await _usuarioRepository.GetAllAsync();
-            return usuarios.Select(u => new UsuarioDto
-            {
-                IdUsuario = u.IdUsuario,
-                NombreCompleto = u.NombreCompleto,
-                Correo = u.Correo,
-                Estado = u.Estado
-            });
+            return usuarios.Select(UsuarioMapper.ToDto);
         }
 
         public async Task<UsuarioDto> GetByIdAsync(int id)
@@ -36,23 +31,12 @@ namespace SGHR.Application.Services
             if (usuario == null)
                 throw new KeyNotFoundException("Usuario no encontrado");
 
-            return new UsuarioDto
-            {
-                IdUsuario = usuario.IdUsuario,
-                NombreCompleto = usuario.NombreCompleto,
-                Correo = usuario.Correo,
-                Estado = usuario.Estado
-            };
+            return UsuarioMapper.ToDto(usuario);
         }
 
         public async Task<OperationResult> CreateAsync(SaveUsuarioDto dto)
         {
-            var usuario = new Usuario
-            {
-                NombreCompleto = dto.NombreCompleto,
-                Correo = dto.Correo,
-                Estado = true
-            };
+            var usuario = UsuarioMapper.ToEntity(dto);
             return await _usuarioRepository.AddAsync(usuario);
         }
 
@@ -62,8 +46,7 @@ namespace SGHR.Application.Services
             if (usuario == null)
                 return new OperationResult { Success = false, Message = "Usuario no encontrado" };
 
-            usuario.NombreCompleto = dto.NombreCompleto;
-            usuario.Correo = dto.Correo;
+            UsuarioMapper.UpdateEntity(usuario, dto);
             return await _usuarioRepository.UpdateAsync(usuario);
         }
 

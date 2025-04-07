@@ -55,9 +55,10 @@ namespace SGHR.Web.Controllers
             var updateDto = new UpdateUsuarioDto
             {
                 IdUsuario = usuario.IdUsuario,
-                NombreUsuario = usuario.NombreUsuario,
+                NombreCompleto = usuario.NombreCompleto,
                 Correo = usuario.Correo,
-                Rol = usuario.Rol
+                IdRolUsuario = usuario.IdRolUsuario,
+                Estado = usuario.Estado
             };
 
             return View(updateDto);
