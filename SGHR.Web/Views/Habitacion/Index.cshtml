@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SGHR.Application.Dtos.Habitacion.HabitacionDto>
+
+@{
+    ViewData["Title"] = "Listado de Habitaciones";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["mensaje"]</div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+<a asp-action="Create" class="btn btn-success mb-3">+ Nueva Habitación</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Número</th>
+            <th>Detalle</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th style="width: 250px;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var h in Model)
+        {
+            <tr class="@(h.Estado ? "" : "table-secondary")">
+                <td>@h.Numero</td>
+                <td>@h.Detalle</td>
+                <td>@h.Precio.ToString("C")</td>
+                <td>
+                    <span class="badge bg-@(h.Estado ? "success" : "secondary")">
+                        @(h.Estado ? "Activa" : "Inactiva")
+                    </span>
+                </td>
+                <td>
+                    @if (h.Estado)
+                    {
+                        <a asp-action="Edit" asp-route-id="@h.IdHabitacion" class="btn btn-warning btn-sm me-1">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@h.IdHabitacion" class="btn btn-danger btn-sm me-1">Eliminar</a>
+                        <a asp-action="Details" asp-route-id="@h.IdHabitacion" class="btn btn-info btn-sm">Ver</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Activar" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@h.IdHabitacion" />
+                            <button type="submit" class="btn btn-success btn-sm">Activar</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

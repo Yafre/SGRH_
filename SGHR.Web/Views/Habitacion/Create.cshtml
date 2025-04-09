@@ -1,0 +1,69 @@
+﻿@model SGHR.Web.Models.HabitacionFormViewModel
+
+@{
+    ViewData["Title"] = "Nueva Habitación";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.Numero" class="control-label"></label>
+        <input asp-for="Habitacion.Numero" class="form-control" />
+        <span asp-validation-for="Habitacion.Numero" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.Detalle" class="control-label"></label>
+        <input asp-for="Habitacion.Detalle" class="form-control" />
+        <span asp-validation-for="Habitacion.Detalle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.Precio" class="control-label"></label>
+        <input asp-for="Habitacion.Precio" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Habitacion.Precio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.IdEstadoHabitacion" class="control-label">Estado Habitacional</label>
+        <select asp-for="Habitacion.IdEstadoHabitacion" class="form-control"
+                asp-items="@(new SelectList(Model.Estados, "Id", "Nombre"))">
+            <option value="">-- Selecciona --</option>
+        </select>
+        <span asp-validation-for="Habitacion.IdEstadoHabitacion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.IdPiso" class="control-label">Piso</label>
+        <select asp-for="Habitacion.IdPiso" class="form-control"
+                asp-items="@(new SelectList(Model.Pisos, "Id", "Nombre"))">
+            <option value="">-- Selecciona --</option>
+        </select>
+        <span asp-validation-for="Habitacion.IdPiso" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Habitacion.IdCategoria" class="control-label">Categoría</label>
+        <select asp-for="Habitacion.IdCategoria" class="form-control"
+                asp-items="@(new SelectList(Model.Categorias, "Id", "Nombre"))">
+            <option value="">-- Selecciona --</option>
+        </select>
+        <span asp-validation-for="Habitacion.IdCategoria" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Habitacion.Estado" class="form-check-input" />
+        <label asp-for="Habitacion.Estado" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

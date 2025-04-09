@@ -1,13 +1,12 @@
-﻿using SGHR.Domain.Repository;
-using SGHR.Domain.Base;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using SGHR.Domain.Base;
 using SGHR.Domain.Entities.Habitaciones;
+using SGHR.Domain.Repository;
+using System.Threading.Tasks;
 
 namespace SGHR.Persistence.Interfaces
 {
     public interface IHabitacionRepository : IBaseRepository<Habitacion>
     {
-        Task<OperationResult> GetAvailableRoomsAsync();
+        Task<OperationResult> ActivateAsync(int id);
     }
 }

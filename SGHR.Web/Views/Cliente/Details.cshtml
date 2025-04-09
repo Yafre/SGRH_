@@ -1,0 +1,30 @@
+﻿@model SGHR.Model.Model.ClienteGetModel
+
+@{
+    ViewData["Title"] = "Detalles del cliente";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<dl class="row">
+    <dt class="col-sm-4 fw-bold">Tipo de documento</dt>
+    <dd class="col-sm-8">@Model.TipoDocumento</dd>
+
+    <dt class="col-sm-4 fw-bold">Número de documento</dt>
+    <dd class="col-sm-8">@Model.Documento</dd>
+
+    <dt class="col-sm-4 fw-bold">Nombre Completo</dt>
+    <dd class="col-sm-8">@Model.NombreCompleto</dd>
+
+    <dt class="col-sm-4 fw-bold">Correo</dt>
+    <dd class="col-sm-8">@Model.Correo</dd>
+
+    <dt class="col-sm-4 fw-bold">Estado</dt>
+    <dd class="col-sm-8">
+        <span class="badge bg-@(Model.Estado ? "success" : "secondary")">
+            @(Model.Estado ? "Activo" : "Inactivo")
+        </span>
+    </dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">← Volver al listado</a>

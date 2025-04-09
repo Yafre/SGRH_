@@ -5,8 +5,10 @@ using SGHR.Persistence.Interfaces;
 using SGHR.Application.Dtos.Servicio;
 using SGHR.Domain.Base;
 using SGHR.Model.Model;
+using SGHR.Domain.Entities; 
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using SGHR.Domain.Entities.Servicios;
 
 namespace SGHR.Application.Test.Services
 {
@@ -36,7 +38,8 @@ namespace SGHR.Application.Test.Services
         public async Task CreateAsync_ShouldReturnSuccess()
         {
             var dto = new SaveServicioDto { Nombre = "Test Service", Descripcion = "Test Desc" };
-            _repositoryMock.Setup(r => r.AddAsync(It.IsAny<SGHR.Domain.Entities.Servicio>()))
+
+            _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Servicio>())) 
                 .ReturnsAsync(new OperationResult { Success = true });
 
             var result = await _service.CreateAsync(dto);

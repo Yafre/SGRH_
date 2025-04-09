@@ -1,0 +1,31 @@
+﻿@model SGHR.Application.Dtos.Servicio.ServicioDto
+
+@{
+    ViewData["Title"] = "Eliminar Servicio";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<div class="alert alert-warning" role="alert">
+    <strong>¿Estás segura que deseas eliminar este servicio?</strong>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3 fw-bold">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3 fw-bold">Descripción</dt>
+            <dd class="col-sm-9">@Model.Descripcion</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdServicio" />
+
+    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

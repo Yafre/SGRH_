@@ -1,5 +1,5 @@
 ﻿using SGHR.Domain.Base;
-using SGHR.Domain.Entities;
+using SGHR.Domain.Entities.Servicios;
 using SGHR.Model.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +10,7 @@ namespace SGHR.Persistence.Interfaces
     {
         Task<IEnumerable<ServicioGetModel>> GetAllAsync();
         Task<ServicioGetModel?> GetByIdAsync(int id);
+        Task<Servicio?> FindEntityByIdAsync(int id); 
         Task<bool> ExistsAsync(int id);
         Task<OperationResult> AddAsync(Servicio servicio);
         Task<OperationResult> UpdateAsync(Servicio servicio);

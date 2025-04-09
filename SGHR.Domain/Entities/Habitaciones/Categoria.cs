@@ -1,17 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SGHR.Domain.Entities.Habitaciones;
+using SGHR.Domain.Entities.Servicios;
 
-namespace SGHR.Domain.Entities.Habitaciones
+public class Categoria
 {
-    public class Categoria
-    {
-        [Key]
-        public int IdCategoria { get; set; }
-        public string Descripcion { get; set; } = string.Empty;
-        public bool Estado { get; set; }
-        public int IdServicio { get; set; }
-        public DateTime FechaCreacion { get; set; }
+    public int IdCategoria { get; set; }
 
-        public virtual Servicio? Servicio { get; set; }
-        public virtual ICollection<Habitacion> Habitaciones { get; set; } = [];
-    }
+    public string Nombre { get; set; } = string.Empty;
+
+    // Estas 3 propiedades estaban faltando:
+    public string Descripcion { get; set; } = string.Empty;
+
+    public bool Estado { get; set; }
+
+    public int IdServicio { get; set; }  // FK
+
+    // Propiedad de navegación
+    public Servicio Servicio { get; set; } = null!;
+
+    public ICollection<Habitacion> Habitaciones { get; set; } = new List<Habitacion>();
 }

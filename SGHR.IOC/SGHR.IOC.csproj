@@ -14,4 +14,10 @@
     <ProjectReference Include="..\SGHR.Application\SGHR.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\SGHR.Persistence\SGHR.Persistence.csproj" />
+		<ProjectReference Include="..\SGHR.Web\SGHR.Web.csproj" />
+	</ItemGroup>
+
+
 </Project>

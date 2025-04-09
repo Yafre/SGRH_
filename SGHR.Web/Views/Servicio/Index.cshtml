@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SGHR.Application.Dtos.Servicio.ServicioDto>
+
+@{
+    ViewData["Title"] = "Servicios";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+<a asp-action="Create" class="btn btn-success mb-3">+ Nuevo Servicio</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th style="width: 250px;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var rowClass = item.Estado ? "" : "table-secondary";
+            <tr class="@rowClass">
+                <td>@item.Nombre</td>
+                <td>@item.Descripcion</td>
+                <td>
+                    <span class="badge bg-@(item.Estado ? "success" : "secondary")">
+                        @(item.Estado ? "Activo" : "Inactivo")
+                    </span>
+                </td>
+                <td>
+                    @if (item.Estado)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.IdServicio" class="btn btn-warning btn-sm me-1">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdServicio" class="btn btn-danger btn-sm me-1">Eliminar</a>
+                        <a asp-action="Details" asp-route-id="@item.IdServicio" class="btn btn-info btn-sm">Ver</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Activate" asp-route-id="@item.IdServicio" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm me-1">Activar</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

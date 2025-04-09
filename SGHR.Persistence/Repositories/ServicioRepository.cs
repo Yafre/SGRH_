@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SGHR.Domain.Base;
-using SGHR.Domain.Entities;
+using SGHR.Domain.Entities.Servicios;
 using SGHR.Model.Model;
 using SGHR.Persistence.Context;
 using SGHR.Persistence.Interfaces;
@@ -24,12 +24,14 @@ namespace SGHR.Persistence.Repositories
 
         public async Task<IEnumerable<ServicioGetModel>> GetAllAsync()
         {
+           
             return await _context.Servicios
                 .Select(s => new ServicioGetModel
                 {
                     IdServicio = s.IdServicio,
                     Nombre = s.Nombre,
                     Descripcion = s.Descripcion,
+                    Estado = s.Estado
                 })
                 .ToListAsync();
         }
@@ -43,8 +45,14 @@ namespace SGHR.Persistence.Repositories
                     IdServicio = s.IdServicio,
                     Nombre = s.Nombre,
                     Descripcion = s.Descripcion,
+                    Estado = s.Estado
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Servicio?> FindEntityByIdAsync(int id)
+        {
+            return await _context.Servicios.FindAsync(id);
         }
 
         public async Task<bool> ExistsAsync(int id) =>
@@ -73,7 +81,7 @@ namespace SGHR.Persistence.Repositories
             if (servicio is null)
                 return new OperationResult { Success = false, Message = "Servicio no encontrado." };
 
-            servicio.Estado = false; 
+            servicio.Estado = false;
             _context.Servicios.Update(servicio);
             await _context.SaveChangesAsync();
 

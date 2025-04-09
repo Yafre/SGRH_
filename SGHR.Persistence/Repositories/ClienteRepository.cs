@@ -6,6 +6,7 @@ using SGHR.Model.Model;
 using SGHR.Persistence.Base;
 using SGHR.Persistence.Context;
 using SGHR.Persistence.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,19 +23,23 @@ namespace SGHR.Persistence.Repositories
             _logger = logger;
         }
 
-        public new async Task<IEnumerable<ClienteGetModel>> GetAllAsync()
+        
+        public async Task<IEnumerable<ClienteGetModel>> GetAllClientesAsync()
         {
             return await _context.Clientes
                 .Select(c => new ClienteGetModel
                 {
                     IdCliente = c.IdCliente,
+                    TipoDocumento = c.TipoDocumento,
+                    Documento = c.Documento,
                     NombreCompleto = c.NombreCompleto,
                     Correo = c.Correo,
                     Estado = c.Estado
                 }).ToListAsync();
         }
 
-        public new async Task<OperationResult> GetByIdAsync(int id)
+        
+        public async Task<OperationResult> GetClienteViewByIdAsync(int id)
         {
             var result = new OperationResult();
             try
@@ -44,6 +49,8 @@ namespace SGHR.Persistence.Repositories
                     .Select(c => new ClienteGetModel
                     {
                         IdCliente = c.IdCliente,
+                        TipoDocumento = c.TipoDocumento,
+                        Documento = c.Documento,
                         NombreCompleto = c.NombreCompleto,
                         Correo = c.Correo,
                         Estado = c.Estado
@@ -69,6 +76,13 @@ namespace SGHR.Persistence.Repositories
             return result;
         }
 
+     
+        public async Task<Cliente?> FindEntityByIdAsync(int id)
+        {
+            return await _context.Clientes.FindAsync(id);
+        }
+
+      
         public async Task<OperationResult> GetByEmailAsync(string email)
         {
             var result = new OperationResult();
@@ -79,6 +93,8 @@ namespace SGHR.Persistence.Repositories
                     .Select(c => new ClienteGetModel
                     {
                         IdCliente = c.IdCliente,
+                        TipoDocumento = c.TipoDocumento,
+                        Documento = c.Documento,
                         NombreCompleto = c.NombreCompleto,
                         Correo = c.Correo,
                         Estado = c.Estado
@@ -103,6 +119,37 @@ namespace SGHR.Persistence.Repositories
                 result.Message = "Ocurrió un error obteniendo el cliente por correo.";
             }
             return result;
+        }
+
+     
+        public async Task<OperationResult> DeleteClienteAsync(int id)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null)
+            {
+                return new OperationResult { Success = false, Message = "Cliente no encontrado." };
+            }
+
+            cliente.Estado = false;
+            _context.Clientes.Update(cliente);
+            await _context.SaveChangesAsync();
+
+            return new OperationResult { Success = true, Message = "Cliente eliminado lógicamente." };
+        }
+
+        public async Task<OperationResult> ActivateAsync(int id)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null)
+            {
+                return new OperationResult { Success = false, Message = "Cliente no encontrado." };
+            }
+
+            cliente.Estado = true;
+            _context.Clientes.Update(cliente);
+            await _context.SaveChangesAsync();
+
+            return new OperationResult { Success = true, Message = "Cliente activado correctamente." };
         }
     }
 }

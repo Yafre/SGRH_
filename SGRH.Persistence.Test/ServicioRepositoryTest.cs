@@ -6,44 +6,42 @@ using SGHR.Persistence.Context;
 using SGHR.Persistence.Repositories;
 using SGHR.Domain.Entities;
 using System.Threading.Tasks;
+using SGHR.Domain.Entities.Servicios;
 
 namespace SGHR.Persistence.Test.Repositories
 {
-    public class ClienteRepositoryTest
+    public class ServicioRepositoryTest
     {
         private readonly SGHRContext _context;
-        private readonly ClienteRepository _repository;
+        private readonly ServicioRepository _repository;
 
-        public ClienteRepositoryTest()
+        public ServicioRepositoryTest()
         {
             var options = new DbContextOptionsBuilder<SGHRContext>()
-                .UseInMemoryDatabase(databaseName: "SGHR_TestDB_Cliente")
+                .UseInMemoryDatabase(databaseName: "SGHR_TestDB_Servicio")
                 .Options;
 
             _context = new SGHRContext(options);
+            var mockLogger = new Mock<ILogger<ServicioRepository>>();
 
-            // Creamos un mock de ILogger
-            var mockLogger = new Mock<ILogger<ClienteRepository>>();
-            _repository = new ClienteRepository(_context, mockLogger.Object);
+            _repository = new ServicioRepository(_context, mockLogger.Object);
         }
 
         [Fact]
         public async Task AddAsync_ShouldAddEntity()
         {
-            var entity = new Cliente { NombreCompleto = "Test", Correo = "test@mail.com" };
+            var entity = new Servicio { Nombre = "Spa", Descripcion = "Relax" };
             var result = await _repository.AddAsync(entity);
-
             Assert.True(result.Success);
         }
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnEntities()
         {
-            _context.Set<Cliente>().Add(new Cliente { NombreCompleto = "Test", Correo = "test@mail.com" });
+            _context.Set<Servicio>().Add(new Servicio { Nombre = "Spa", Descripcion = "Relax" });
             await _context.SaveChangesAsync();
 
             var result = await _repository.GetAllAsync();
-
             Assert.NotNull(result);
         }
     }

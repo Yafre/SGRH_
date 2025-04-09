@@ -7,32 +7,36 @@ namespace SGHR.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class ClienteController(IClienteService clienteService, ILogger<ClienteController> logger) : ControllerBase
     {
-        private readonly IClienteService _service;
-        private readonly ILogger<ClienteController> _logger;
-
-        public ClienteController(IClienteService service, ILogger<ClienteController> logger)
-        {
-            _service = service;
-            _logger = logger;
-        }
+        private readonly IClienteService _clienteService = clienteService;
+        private readonly ILogger<ClienteController> _logger = logger;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var clientes = await _clienteService.GetAllAsync();
+            return Ok(clientes);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound($"Cliente con ID {id} no encontrado.");
-            return Ok(result);
+            try
+            {
+                var cliente = await _clienteService.GetByIdAsync(id);
+                return Ok(cliente);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SaveClienteDto dto)
         {
-            var result = await _service.CreateAsync(dto);
+            var result = await _clienteService.CreateAsync(dto);
             return result.Success ? Ok(result) : BadRequest(result.Message);
         }
 
@@ -40,18 +44,22 @@ namespace SGHR.Api.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateClienteDto dto)
         {
             dto.IdCliente = id;
-            var result = await _service.UpdateAsync(dto);
+            var result = await _clienteService.UpdateAsync(dto);
             return result.Success ? Ok(result) : BadRequest(result.Message);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _service.RemoveAsync(new RemoveClienteDto { IdCliente = id });
+            var result = await _clienteService.RemoveAsync(new RemoveClienteDto { IdCliente = id });
+            return result.Success ? Ok(result) : BadRequest(result.Message);
+        }
+
+        [HttpPut("activar/{id}")]
+        public async Task<IActionResult> Activar(int id)
+        {
+            var result = await _clienteService.ActivateAsync(id);
             return result.Success ? Ok(result) : BadRequest(result.Message);
         }
     }
 }
-
-
-

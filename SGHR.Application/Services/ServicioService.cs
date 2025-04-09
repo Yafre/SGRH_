@@ -1,7 +1,7 @@
 ﻿using SGHR.Application.Dtos.Servicio;
 using SGHR.Application.Interfaces;
 using SGHR.Domain.Base;
-using SGHR.Domain.Entities;
+using SGHR.Domain.Entities.Servicios;
 using SGHR.Model.Model;
 using SGHR.Persistence.Interfaces;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace SGHR.Application.Services
                 IdServicio = s.IdServicio,
                 Nombre = s.Nombre,
                 Descripcion = s.Descripcion,
+                Estado = s.Estado
             });
 
         public async Task<ServicioDto> GetByIdAsync(int id)
@@ -32,6 +33,7 @@ namespace SGHR.Application.Services
                 IdServicio = servicio.IdServicio,
                 Nombre = servicio.Nombre,
                 Descripcion = servicio.Descripcion,
+                Estado = servicio.Estado
             };
         }
 
@@ -45,7 +47,7 @@ namespace SGHR.Application.Services
 
         public async Task<OperationResult> UpdateAsync(UpdateServicioDto dto)
         {
-            if (await _servicioRepository.GetByIdAsync(dto.IdServicio) is null)
+            if (await _servicioRepository.ExistsAsync(dto.IdServicio) is false)
                 return new OperationResult { Success = false, Message = "Servicio no encontrado" };
 
             return await _servicioRepository.UpdateAsync(new Servicio
@@ -57,7 +59,16 @@ namespace SGHR.Application.Services
             });
         }
 
-        public async Task<OperationResult> RemoveAsync(RemoveServicioDto dto) =>
-            await _servicioRepository.DeleteAsync(dto.IdServicio);
+        public async Task<OperationResult> RemoveAsync(RemoveServicioDto dto)
+        {
+            var servicio = await _servicioRepository.FindEntityByIdAsync(dto.IdServicio);
+
+            if (servicio == null)
+                return new OperationResult { Success = false, Message = "Servicio no encontrado" };
+
+            servicio.Estado = false;
+
+            return await _servicioRepository.UpdateAsync(servicio);
+        }
     }
 }
